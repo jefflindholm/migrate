@@ -1,0 +1,27 @@
+{
+  "name": "simple-pg-migrate",
+  "version": "1.0.0",
+  "description": "dead simple migrate, currently setup for PostgreSQL",
+  "main": "migrate.js",
+  "peerDependencies": {
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefflindholm/migrate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefflindholm/migrate/issues"
+  },
+  "homepage": "https://github.com/jefflindholm/migrate#readme",
+  "bin": {
+    "migrate": "migrate.js"
+  },
+  "dependencies": {
+    "shelljs": "^0.8.2"
+  }
+}
