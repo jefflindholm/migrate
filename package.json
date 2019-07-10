@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "simple-pg-migrate",
   "version": "1.0.0",
   "description": "dead simple migrate, currently setup for PostgreSQL",
@@ -7,6 +8,15 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {},
+=======
+  "name": "migrate",
+  "version": "1.0.0",
+  "description": "``` git clone https://github.com/jefflindholm/migrate.git ``` * change config.js to have your specific details * Create file(s) in migrations directory     * #-some-description (anything after number is ignored)     * everything from start to '-- Down' is executed for the Up command     * everything after '-- Down' is the rollback * migrate will run all scripts * rollback # will rollback incrementally based on data in database NOT the files",
+  "main": "migrate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+>>>>>>> 6d0e91113a624486aadd623eb9e98f6addfd7362
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jefflindholm/migrate.git"
@@ -18,10 +28,15 @@
     "url": "https://github.com/jefflindholm/migrate/issues"
   },
   "homepage": "https://github.com/jefflindholm/migrate#readme",
+<<<<<<< HEAD
   "bin": {
     "migrate": "migrate.js"
   },
   "dependencies": {
     "shelljs": "^0.8.2"
+=======
+  "dependencies": {
+    "pg": "^7.4.3"
+>>>>>>> 6d0e91113a624486aadd623eb9e98f6addfd7362
   }
 }

@@ -20,7 +20,7 @@ async function command(sql ,args = []) {
     return await connection.query(sql, args);
 }
 const createSql = `
-create table pg_migrations (
+create table dead_simple_migrations (
     id integer primary key,
     name text,
     up text,
@@ -29,7 +29,7 @@ create table pg_migrations (
 )
 `;
 async function createSchema() {
-    const sql = `select * from information_schema.tables where table_name = 'pg_migrations'`;
+    const sql = `select * from information_schema.tables where table_name = 'dead_simple_migrations'`;
     const table = await command(sql);
     if (table.rowCount < 1) {
         const info = await command(createSql);
