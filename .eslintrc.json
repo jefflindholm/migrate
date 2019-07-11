@@ -1,0 +1,7 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier", "chai-expect", "promise"],
+  "rules" : {
+    "prettier/prettier": ["error"]
+  }
+}
