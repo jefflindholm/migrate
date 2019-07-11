@@ -5,7 +5,7 @@ function connect(dbname) {
   return new Promise(resolve => {
     connection = new sqlite3.Database(dbname, err => {
       if (err) console.log(err.message);
-      console.log('db created')
+      console.log('db created');
       resolve();
     });
   });
@@ -34,7 +34,7 @@ async function configure(newConfig) {
   });
 }
 
-async function command(sql ,args = []) {
+async function command(sql, args = []) {
   sql.replace(/\$\d/, '?');
   return await runCommand(sql, args);
 }
@@ -44,7 +44,7 @@ async function getPastMigrations() {
   const sql = `select id from ${migration_table}`;
   const migrations = await command(sql);
   if (migrations.length < 1) {
-      return [];
+    return [];
   }
   return migrations.map(r => Number(r.id));
 }
@@ -53,7 +53,7 @@ async function createSchema(tablename) {
   migration_table = tablename;
   const exists = await tableExists(migration_table);
   if (!exists) {
-      const createSql = `
+    const createSql = `
       create table ${migration_table} (
           id integer primary key,
           name text,
@@ -62,13 +62,13 @@ async function createSchema(tablename) {
           run_at date_time default current_timestamp
       )
       `;
-      await command(createSql);
-    }
+    await command(createSql);
+  }
 }
 
 module.exports = {
   configure,
   command,
   createSchema,
-  getPastMigrations,
+  getPastMigrations
 };

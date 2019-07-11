@@ -1,28 +1,35 @@
 {
-  "name": "simple-pg-migrate",
+  "name": "simple-db-migrate",
   "version": "1.0.0",
-  "description": "dead simple migrate, currently setup for PostgreSQL",
-  "main": "migrate.js",
+  "description": "dead simple migrate, currently setup for PostgreSQL & Sqlite",
+  "main": "tools.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jefflindholm/migrate.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "postgres",
+    "sqlite",
+    "migrate"
+  ],
+  "author": "Jeff Lindholm",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jefflindholm/migrate/issues"
   },
   "homepage": "https://github.com/jefflindholm/migrate#readme",
   "bin": {
-    "migrate": "migrate.js"
+    "simple-db-migrate": "migrate.js"
   },
   "peerDependencies": {
-    "pg": "^7.4.3"
-  },
-  "devDependencies": {},
-  "dependencies": {
     "pg": "^7.11.0",
-    "sqlite3": "^4.0.8"
+    "sqlite3": "^4.0.9"
+  },
+  "devDependencies": {
+    "pg": "^7.11.0",
+    "sqlite3": "^4.0.9"
+  },
+  "scripts": {
+    "do-publish": "npm publish --registry=https://registry.npmjs.org"
   }
 }
