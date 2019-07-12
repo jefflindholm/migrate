@@ -1,8 +1,8 @@
 {
   "name": "simple-db-migrate",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "dead simple migrate, currently setup for PostgreSQL & Sqlite",
-  "main": "tools.js",
+  "main": "migrate.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jefflindholm/migrate.git"
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jefflindholm/migrate#readme",
   "bin": {
-    "simple-db-migrate": "migrate.js"
+    "simple-db-migrate": "index.js"
   },
   "peerDependencies": {
     "pg": "^7.11.0",
