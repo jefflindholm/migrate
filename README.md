@@ -68,6 +68,23 @@ await migrate('./migrations', config);
 migrate <options>
 ```
 
+## my other npm package(s)
+
+https://www.npmjs.com/package/fluent-sql
+* SQL generator
+* lets you do something like the following
+```javascript
+const query = new SqlQuery()
+  .select(users.id, users.username, users.password)
+  .from(users)
+  .where(users.username.eq('jdoe'));
+  // ...
+const userDetail = new SqlQuery()
+  .select(users.star(), addresses.star())
+  .from(users)
+  .join(addresses.on(addresses.id).using(users.addressId));
+```
+
 
 ## if you are in the repo, not the npm install
 ```
