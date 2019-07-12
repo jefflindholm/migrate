@@ -33,10 +33,17 @@ async function configure(newConfig) {
     await connection.close();
   });
 }
-
+async function close() {
+  connection.close();
+}
 async function command(sql, args = []) {
-  sql.replace(/\$\d/, '?');
+  sql = sql.replace(/\$\d/, '?');
   return await runCommand(sql, args);
+}
+
+async function select(sql, args = []) {
+  const result = await command(sql, args);
+  return result;
 }
 
 let migration_table = '';
@@ -69,6 +76,8 @@ async function createSchema(tablename) {
 module.exports = {
   configure,
   command,
+  select,
   createSchema,
-  getPastMigrations
+  getPastMigrations,
+  close
 };

@@ -58,7 +58,7 @@ await migrate('./migrations', config);
 * rollback only options
   * --rollback, -r `toggle on` runs rollback script from database
   * --force, -f `toggle on` Will force read from files not database
-  * --level, -l `number` level to rollback inclusive
+  * --step, -s `number` step to rollback inclusive
 * misc
   * --help Show help text
 

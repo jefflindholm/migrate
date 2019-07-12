@@ -1,16 +1,38 @@
 // { name: 'verbose', alias: 'v', type: Boolean },
 
+function addError(results, error) {
+  if (!results.errors) results.errors = [];
+  results.errors = [...results.errors, error];
+}
 function addResult(results, option, value) {
+  if (option.options) {
+    if (option.options.indexOf(value) === -1) {
+      addError(results, `${option.name} - ${value} not in ${option.options}`);
+      return;
+    }
+  }
   if (option.type === Array) {
     avalue = results[option.name] || [];
     avalue.push(value);
     value = avalue;
+  } else if (option.type === Number) {
+    let number;
+    if (!option.numeric || option.numeric === 'int') {
+      number = Number.parseInt(value);
+    } else {
+      number = Number.parseFloat(value);
+    }
+    if (Number.isNaN(number)) {
+      addError(results, `${option.name} - ${value} was not numeric`);
+      return;
+    }
+    value = number;
   }
   results[option.name] = value;
 }
 
 function help(options) {
-  console.log('Possible arguments');
+  let helpText = 'Possible arguments\n';
   for (option of options) {
     let typeName;
     switch (option.type) {
@@ -37,68 +59,57 @@ function help(options) {
       ? '<' + option.options.reduce((p, c, i) => p + (i > 0 ? ', ' : '') + c, 'one of: [') + ']>'
       : '';
     const text = option.text || '';
-    console.log(`${name}${sep}${alias} ${typeName}${valid} ${text}`);
+    helpText += `${name}${sep}${alias} ${typeName}${valid} ${text}\n`;
   }
-  console.log('--help Show this text');
-  process.exit();
+  helpText += '--help Show this text\n';
+  return helpText;
 }
 
-module.exports = options => {
+function parse(options, argv) {
   const results = {};
-  for (let i = 2; i < process.argv.length; i++) {
-    const arg = process.argv[i];
-    const alias = arg.slice(1, 2); // always the same regardless of the option
+  for (let i = 2; i < argv.length; i++) {
+    const arg = argv[i];
     const equal = arg.indexOf('=', 2); // we can always skip first 2 characters
-    let found = false;
+    let value = null;
 
     if (arg === '--help') {
-      help(options);
-      return {};
+      return { help: help(options) };
     }
 
-    for (option of options) {
-      if (!option.name) continue;
-      const name = arg.slice(2, option.name.length + 2);
-      let value = null;
-      if (option.name && option.name === name) {
-        if (option.type === Boolean) {
-          value = true;
-        } else if (equal === -1) {
-          value = process.argv[i + 1];
-          i++;
-        } else {
-          value = arg.slice(equal + 1);
-        }
-      } else if (option.alias && option.alias === alias) {
-        if (option.type === Boolean) {
-          value = true;
-        } else if (equal === -1) {
-          value = process.argv[i + 1];
-          i++;
-        } else {
-          value = arg.slice(equal + 1);
-        }
+    const option = options.find(
+      op =>
+        (op.name && op.name === arg.slice(2, op.name.length + 2)) ||
+        (op.alias && op.alias === (equal !== -1 ? arg.slice(1, equal) : arg.slice(1)))
+    );
+
+    if (option) {
+      if (option.type === Boolean) {
+        value = true;
+      } else if (equal === -1) {
+        value = argv[i + 1];
+        i++;
+      } else {
+        value = arg.slice(equal + 1);
       }
-      if (value) {
-        if (option.type === Number) {
-          let number;
-          if (!option.numeric || option.numeric === 'int') {
-            Number.parseInt(value);
-          } else {
-            value = Number.parseFloat(value);
-          }
-          if (value === NaN) {
-            console.error(`Value was not numeric ${value} argument ${arg}`);
-            value = null;
-          }
-        }
-        addResult(results, option, value);
-        found = true;
-      }
+    } else {
+      addError(results, `Unrecognized option ${arg}`);
     }
-    if (!found && arg.slice(0, 1) === '-') {
-      console.error(`Unrecognized option ${arg} ignored`);
+
+    if (value) {
+      addResult(results, option, value);
     }
   }
   return results;
+}
+
+module.exports = {
+  parse,
+  commandLineParser: options => {
+    const results = parse(options, process.argv);
+    if (results.help) {
+      console.log(results.help);
+      process.exit();
+    }
+    return results;
+  }
 };

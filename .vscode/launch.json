@@ -10,6 +10,15 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}\\migrate.js",
             "args": ["--database", "db.sqlite", "-d=sqlite"]
-        }
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Jest Tests",
+          "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+          "args": [
+              "-i"
+          ]
+      }
     ]
 }
