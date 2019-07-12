@@ -1,5 +1,21 @@
 # Dead simple database migration
 
+## example create table migration (more examples at end)
+* filename `001-user-table.sql
+```sql
+-- Up
+create table users (
+    id SERIAL PRIMARY key,
+    user_id TEXT,
+    password TEXT,
+    active BOOLEAN,
+    created timestamp,
+    updated timestamp
+);
+-- Down
+drop table users;
+```
+
 ## database table creation
 * the following is the migration tracking table added to the database
 ```sql
@@ -85,6 +101,42 @@ const userDetail = new SqlQuery()
   .join(addresses.on(addresses.id).using(users.addressId));
 ```
 
+## more examples
+* add some user data (don't do this, since the password is plain text)
+```sql
+-- Up
+insert into users (
+    user_id,
+    password,
+    active,
+    created,
+    updated,
+Values
+('id1', 'password11', 1, '1/1/2019', '1/1/2019'),
+('id2', 'password12', 0, '1/1/2019', '1/1/2019'),
+('id3', 'password13', 0, '1/1/2019', '1/1/2019'),
+('id4', 'password14', 1, '1/1/2019', '1/1/2019'),
+('id5', 'password15', 0, '1/1/2019', '1/1/2019'),
+('id6', 'password16', 1, '1/1/2019', '1/1/2019');
+-- Down
+delete from users where id = 'id1';
+delete from users where id = 'id2';
+delete from users where id = 'id3';
+delete from users where id = 'id4';
+delete from users where id = 'id5';
+delete from users where id = 'id6';
+```
+* alter table NOTE: this will not work for SQLite since it does not support `drop column`
+
+```sql
+-- Up
+alter table some_table add column engine text;
+alter table some_table add column result text;
+
+-- Down
+alter table some_table drop column engine;
+alter table some_table drop column result;
+```
 
 ## if you are in the repo, not the npm install
 ```
