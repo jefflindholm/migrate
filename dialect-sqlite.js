@@ -1,9 +1,9 @@
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('better-sqlite3').verbose();
 let connection;
 
 function connect(dbname) {
-  return new Promise(resolve => {
-    connection = new sqlite3.Database(dbname, err => {
+  return new Promise((resolve) => {
+    connection = new sqlite3.Database(dbname, (err) => {
       if (err) console.log(err.message);
       console.log('db created');
       resolve();
@@ -12,7 +12,7 @@ function connect(dbname) {
 }
 
 function runCommand(sql, args = []) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     connection.all(sql, args, (err, rows) => {
       if (err) throw err;
       resolve(rows);
@@ -53,7 +53,7 @@ async function getPastMigrations() {
   if (migrations.length < 1) {
     return [];
   }
-  return migrations.map(r => Number(r.id));
+  return migrations.map((r) => Number(r.id));
 }
 
 async function createSchema(tablename) {
@@ -79,5 +79,5 @@ module.exports = {
   select,
   createSchema,
   getPastMigrations,
-  close
+  close,
 };
