@@ -1,14 +1,15 @@
 version: '3'
 
 volumes:
-  postgresql-volume:
+  postgresql-migrate-volume:
+
 
 services:
   postgresql:
     image: postgres:latest
     container_name: postgres-ex1
     volumes:
-      - postgresql-volume:/var/lib/postgresql
+      - postgresql-migrate-volume:/var/lib/postgresql
     ports:
       - "5432:5432"
     environment:

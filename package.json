@@ -1,6 +1,6 @@
 {
   "name": "simple-db-migrate",
-  "version": "0.9.0",
+  "version": "0.11.0",
   "description": "dead simple migrate, currently setup for PostgreSQL & Sqlite",
   "main": "migrate.js",
   "repository": {
@@ -22,13 +22,13 @@
     "simple-db-migrate": "index.js"
   },
   "peerDependencies": {
-    "better-sqlite3": "^8.3.0",
-    "pg": "^8.10.0"
+    "better-sqlite3": "^11.5.0",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
-    "better-sqlite3": "^8.3.0",
-    "jest": "^29.5.0",
-    "pg": "^8.10.0"
+    "better-sqlite3": "^11.5.0",
+    "jest": "^29.7.0",
+    "pg": "^8.13.1"
   },
   "scripts": {
     "do-publish": "npm publish --registry=https://registry.npmjs.org",
