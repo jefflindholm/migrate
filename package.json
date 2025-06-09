@@ -1,6 +1,6 @@
 {
   "name": "simple-db-migrate",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "dead simple migrate, currently setup for PostgreSQL & Sqlite",
   "main": "migrate.js",
   "repository": {
